@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 const Deletestudent = () => {
   return (
     <div>
+        
         <Navbar/>
      <h1 className='header'><center>Delete Student</center></h1><br></br>
 

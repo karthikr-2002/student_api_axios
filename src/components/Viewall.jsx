@@ -3,30 +3,42 @@ import Navbar from './Navbar'
 import axios from 'axios'
 
 const Viewall = () => {
-    const [studentData,changeStudentData]=useState(
-        {"status":"success","data":[]}
-            
+    const [isLoading, changeLoading] = useState(
+        true
     )
-const fetchData =()=>{
-    axios.get("http://18.144.111.41/view_all_students.php").then(
-        (response)=>{
-            changeStudentData(response.data)
-        }
-    ).catch()
-}
 
-useEffect(()=>{fetchData()}, [])
+    const [studentData, changeStudentData] = useState(
+        { "status": "success", "data": [] }
 
-  return (
-    <div>
-          <Navbar />
-                           <h1 className='header'><center>View All Student</center></h1>
+    )
+    const fetchData = () => {
+        axios.get("http://18.144.111.41/view_all_students.php").then(
+            (response) => {
+                changeLoading(false)
+
+                changeStudentData(response.data)
+            }
+        ).catch(() => {
+            alert("Something Went Wrong")
+
+        })
+    }
+
+    useEffect(() => { fetchData() }, [])
+
+    return (
+        <div>
+            <Navbar />
+            <h1 className='header'><center>View All Student</center></h1>
 
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-
-                        <table class="table table-striped  ">
+                        {isLoading ? (<div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>):(<table class="table table-striped  ">
 
                             <thead>
                                 <tr>
@@ -35,7 +47,7 @@ useEffect(()=>{fetchData()}, [])
                                     <th scope="col">Roll No</th>
                                     <th scope="col">Admission No</th>
                                     <th scope="col">college</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,15 +60,17 @@ useEffect(()=>{fetchData()}, [])
                                                 <td>{value.roll_number}</td>
                                                 <td>{value.admission_number}</td>
                                                 <td>{value.college}</td>
-                                                
+
                                             </tr>
-                                            
+
                                         )
                                     }
                                 )}
                             </tbody>
 
-                        </table>
+                        </table>)}
+
+                        
 
 
 
@@ -64,8 +78,8 @@ useEffect(()=>{fetchData()}, [])
                 </div>
             </div>
 
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Viewall

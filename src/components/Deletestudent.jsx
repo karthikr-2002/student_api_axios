@@ -1,7 +1,22 @@
 import React from 'react'
 import Navbar from './Navbar'
+import { useState } from 'react'
 
 const Deletestudent = () => {
+
+    const [input, changeInput] = useState(
+            {  roll_number: "" }
+        )
+         const inputHandler=(event)=>{
+                        changeInput( {...input,[event.target.name]:event.target.value} )
+            
+            }
+            const readValues=()=>{
+                console.log(input)
+                
+            }
+
+
   return (
     <div>
         
@@ -15,12 +30,12 @@ const Deletestudent = () => {
                         <div className="row">
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Roll No</label>
-                                <input type="text" className="form-control" />
+                                <input type="text" className="form-control" name='roll_number' value={input.roll_number} onChange={inputHandler}/>
 
                             </div>
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
 
-                                <br></br><button className="btn btn-danger">Delete</button>
+                                <br></br><button className="btn btn-danger" onClick={readValues}>Delete</button>
                             </div>
                         </div>
 

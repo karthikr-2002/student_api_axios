@@ -17,7 +17,10 @@ const Addstudent = () => {
                 (response)=>{
                     alert("Successfully Added")
                 }
-            ).catch()
+            ).catch(() => {
+            alert("Something Went Wrong")
+
+        })
         }
   return (
     <div>
